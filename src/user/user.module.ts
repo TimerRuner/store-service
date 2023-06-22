@@ -8,10 +8,19 @@ import {Token} from "../token/token.model";
 import {Account} from "../account/account.model";
 import {RoleModule} from "../role/role.module";
 import { TokenModule } from "../token/token.module";
+import {Basket} from "../basket/basket.model";
+import {Rating} from "../rating/rating.model";
 
 @Module({
   imports: [
-      SequelizeModule.forFeature([Role, User, Token, Account]),
+      SequelizeModule.forFeature([
+          Role,
+          User,
+          Token,
+          Account,
+          Basket,
+          Rating
+      ]),
       RoleModule,
       TokenModule
   ],

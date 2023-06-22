@@ -2,6 +2,8 @@ import {BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table} 
 import {Role} from "../role/role.model";
 import {Token} from "../token/token.model";
 import {Account} from "../account/account.model";
+import {Basket} from "../basket/basket.model";
+import {Rating} from "../rating/rating.model";
 
 interface IUserDto {
     fullName: string
@@ -34,4 +36,10 @@ export class User extends Model<User, IUserDto> {
 
     @HasOne(() => Account)
     account: Account
+
+    @HasOne(() => Basket)
+    basket: Basket
+
+    @HasMany(() => Rating)
+    ratings: Rating[]
 }
