@@ -2,6 +2,7 @@ import { IsEmail, IsEnum, IsString, Length } from "class-validator";
 
 export enum ERole {
     USER = "USER",
+    MANAGER = "MANAGER",
     CREATOR = "CREATOR"
 }
 export class UserCreateDto {
