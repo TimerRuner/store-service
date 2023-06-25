@@ -9,10 +9,19 @@ import {Device} from "./device.model";
 import {DeviceCharacteristic} from "../device_characteristic/device_characteristic.model";
 import {BasketDevice} from "../basket_device/basket_device.model";
 import {Rating} from "../rating/rating.model";
+import {FilesModule} from "../files/files.module";
+import {User} from "../user/user.model";
+import {TokenModule} from "../token/token.module";
+import {TypeModule} from "../type/type.module";
+import {BrandModule} from "../brand/brand.module";
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Type, TypeBrand, Brand, Device, DeviceCharacteristic, BasketDevice, Rating])
+    SequelizeModule.forFeature([Type, TypeBrand, Brand, Device, DeviceCharacteristic, BasketDevice, Rating, User]),
+    TokenModule,
+    FilesModule,
+    TypeModule,
+    BrandModule
   ],
   controllers: [DeviceController],
   providers: [DeviceService]

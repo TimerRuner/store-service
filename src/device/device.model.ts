@@ -4,6 +4,7 @@ import {Brand} from "../brand/brand.model";
 import {DeviceCharacteristic} from "../device_characteristic/device_characteristic.model";
 import {BasketDevice} from "../basket_device/basket_device.model";
 import {Rating} from "../rating/rating.model";
+import {User} from "../user/user.model";
 
 interface IDevice {
     name: string;
@@ -12,6 +13,7 @@ interface IDevice {
     picture: string;
     typeId: number;
     brandId: number;
+    userId: number
 }
 
 @Table({tableName: "device"})
@@ -41,6 +43,13 @@ export class Device extends Model<Device, IDevice> {
 
     @BelongsTo(() => Brand)
     brand: Brand
+
+    @ForeignKey(() => User)
+    @Column
+    userId: number
+
+    @BelongsTo(() => User)
+    user: User
 
     @HasMany(() => DeviceCharacteristic)
     characteristics: DeviceCharacteristic[]

@@ -12,6 +12,7 @@ import {Device} from "../device/device.model";
     SequelizeModule.forFeature([Type, TypeBrand, Brand, Device])
   ],
   controllers: [BrandController],
-  providers: [BrandService]
+  providers: [BrandService],
+  exports: [BrandService]
 })
 export class BrandModule {}

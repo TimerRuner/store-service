@@ -25,6 +25,7 @@ import {Brand} from "./brand/brand.model";
 import {BasketDevice} from "./basket_device/basket_device.model";
 import {Rating} from "./rating/rating.model";
 import {DeviceCharacteristic} from "./device_characteristic/device_characteristic.model";
+import {FilesModule} from "./files/files.module";
 
 @Module({
   imports: [
@@ -51,7 +52,7 @@ import {DeviceCharacteristic} from "./device_characteristic/device_characteristi
             Device,
             Brand,
             Rating,
-            DeviceCharacteristic
+            DeviceCharacteristic,
         ],
         autoLoadModels: true,
         synchronize: true,
@@ -69,6 +70,7 @@ import {DeviceCharacteristic} from "./device_characteristic/device_characteristi
       DeviceCharacteristicModule,
       TypeModule,
       BrandModule,
+      FilesModule
   ],
 })
 export class AppModule {}
