@@ -30,6 +30,9 @@ export class Device extends Model<Device, IDevice> {
     @Column({type: DataType.STRING, allowNull: true})
     picture: string
 
+    @Column({type: DataType.INTEGER, allowNull: false})
+    price: number
+
     @ForeignKey(() => Type)
     @Column
     typeId: number

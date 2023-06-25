@@ -74,6 +74,6 @@ export class DeviceController {
 
     @Delete("delete/:id")
     async deleteDevice(@Param("id") id: number) {
-
+        return await this.deviceService.deleteDevice(id)
     }
 }

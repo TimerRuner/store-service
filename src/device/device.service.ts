@@ -92,4 +92,13 @@ export class DeviceService {
         }
         return updatedDevice
     }
+
+    async deleteDevice(id: number) {
+        const device = await this.deviceProvider.findOne({where: {id}})
+        if(!device){
+            throw new NotFoundException(`Device by id ${id} doesn't exist`)
+        }
+        await this.deviceProvider.destroy({where: {id}})
+        return `Device ${device.name} delete successfully`
+    }
 }
