@@ -7,9 +7,10 @@ import {DeviceCharacteristic} from "./device_characteristic.model";
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Device, DeviceCharacteristic])
+    SequelizeModule.forFeature([Device, DeviceCharacteristic]),
   ],
   controllers: [DeviceCharacteristicController],
-  providers: [DeviceCharacteristicService]
+  providers: [DeviceCharacteristicService],
+  exports: [DeviceCharacteristicService]
 })
 export class DeviceCharacteristicModule {}

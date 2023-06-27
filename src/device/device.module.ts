@@ -14,6 +14,8 @@ import {User} from "../user/user.model";
 import {TokenModule} from "../token/token.module";
 import {TypeModule} from "../type/type.module";
 import {BrandModule} from "../brand/brand.module";
+import {DeviceCharacteristicModule} from "../device_characteristic/device_characteristic.module";
+import {RatingModule} from "../rating/rating.module";
 
 @Module({
   imports: [
@@ -21,9 +23,12 @@ import {BrandModule} from "../brand/brand.module";
     TokenModule,
     FilesModule,
     TypeModule,
-    BrandModule
+    BrandModule,
+    DeviceCharacteristicModule,
+    RatingModule
   ],
   controllers: [DeviceController],
-  providers: [DeviceService]
+  providers: [DeviceService],
+  exports: [DeviceService]
 })
 export class DeviceModule {}

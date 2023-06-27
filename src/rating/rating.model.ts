@@ -13,6 +13,9 @@ export class Rating extends Model<Rating, IRating> {
     @Column({type: DataType.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true})
     id: number
 
+    @Column({type: DataType.INTEGER, allowNull: false})
+    rate: number
+
     @ForeignKey(() => User)
     @Column
     userId: number

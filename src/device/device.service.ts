@@ -8,6 +8,9 @@ import {TypeService} from "../type/type.service";
 import {BrandService} from "../brand/brand.service";
 import {Op} from "sequelize";
 import {DeviceCharacteristic} from "../device_characteristic/device_characteristic.model";
+import {DeviceCharacteristicService} from "../device_characteristic/device_characteristic.service";
+import {RatingService} from "../rating/rating.service";
+import {Rating} from "../rating/rating.model";
 
 @Injectable()
 export class DeviceService {
@@ -16,7 +19,9 @@ export class DeviceService {
         private readonly fileService: FilesService,
         private readonly configService: ConfigService,
         private readonly typeService: TypeService,
-        private readonly brandService: BrandService
+        private readonly brandService: BrandService,
+        private readonly deviceDetailService: DeviceCharacteristicService,
+        private readonly ratingService: RatingService
     ) {}
 
     async create(dto: CreateDeviceDto, picture, userId) {
@@ -53,7 +58,7 @@ export class DeviceService {
     }
 
     async getOneDevice(id: number) {
-        const device = await this.deviceProvider.findOne({where: {id}, include: [DeviceCharacteristic]})
+        const device = await this.deviceProvider.findOne({where: {id}, include: [DeviceCharacteristic, Rating]})
         if(!device) {
             throw new NotFoundException(`Device by id ${id} doesn't exist`)
         }
@@ -98,7 +103,10 @@ export class DeviceService {
         if(!device){
             throw new NotFoundException(`Device by id ${id} doesn't exist`)
         }
+
         await this.deviceProvider.destroy({where: {id}})
+        await this.deviceDetailService.deleteByDeviceId(id)
+        await this.ratingService.deleteByDeviceId(id)
         return `Device ${device.name} delete successfully`
     }
 }

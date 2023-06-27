@@ -24,9 +24,6 @@ export class Device extends Model<Device, IDevice> {
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     name: string
 
-    @Column({type: DataType.INTEGER, defaultValue: 0})
-    rating: number
-
     @Column({type: DataType.STRING, allowNull: true})
     picture: string
 
