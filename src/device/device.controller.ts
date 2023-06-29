@@ -28,7 +28,7 @@ export class DeviceController {
         return null
     }
 
-    @Roles(ERole.CREATOR)
+    @Roles(ERole.CREATOR, ERole.MANAGER)
     @UseGuards(RoleGuard)
     @Post("create")
     @UseInterceptors(FileFieldsInterceptor([
@@ -63,6 +63,8 @@ export class DeviceController {
         return this.deviceService.getOneDevice(id)
     }
 
+    @Roles(ERole.CREATOR, ERole.MANAGER)
+    @UseGuards(RoleGuard)
     @Patch("update/:id")
     @UseInterceptors(FileFieldsInterceptor([
         {name: "picture", maxCount: 1}
@@ -72,6 +74,8 @@ export class DeviceController {
         return this.deviceService.updateDevice(dto, this.checkDtoFiles(picture), id)
     }
 
+    @Roles(ERole.CREATOR, ERole.MANAGER)
+    @UseGuards(RoleGuard)
     @Delete("delete/:id")
     async deleteDevice(@Param("id") id: number) {
         return await this.deviceService.deleteDevice(id)
