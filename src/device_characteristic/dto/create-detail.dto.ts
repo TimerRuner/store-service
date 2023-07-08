@@ -1,5 +1,5 @@
 export class CreateDetailDto {
-    name: string
+    title: string
     description: string
     deviceId: number
 }

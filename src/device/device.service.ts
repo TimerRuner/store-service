@@ -42,11 +42,34 @@ export class DeviceService {
         return await this.deviceProvider.create({...dto, picture: pictureSource, userId})
     }
 
-    async getAll(offset: number = 0, limit: number = 5) {
-        return await this.deviceProvider.findAndCountAll({
-            limit,
-            offset
-        })
+    async getAll(offset: number = 0, limit: number = 5, typeId: number | undefined, brandId: number | undefined) {
+        if(typeId && brandId) {
+            return await this.deviceProvider.findAndCountAll({
+                where: {typeId, brandId},
+                limit,
+                offset
+            })
+        }
+        else if(typeId) {
+            return await this.deviceProvider.findAndCountAll({
+                where: {typeId},
+                limit,
+                offset
+            })
+        }
+        else if(brandId) {
+            return await this.deviceProvider.findAndCountAll({
+                where: {brandId},
+                limit,
+                offset
+            })
+        } else {
+            console.log("===========")
+            return await this.deviceProvider.findAndCountAll({
+                limit,
+                offset
+            })
+        }
     }
 
     async searchDevice(query: string, offset: number = 0, limit: number = 5) {

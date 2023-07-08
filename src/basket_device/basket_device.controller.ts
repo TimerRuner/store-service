@@ -3,7 +3,7 @@ import {BasketDeviceCrateDto} from "./dto/basket-device-crate.dto";
 import {BasketDeviceService} from "./basket_device.service";
 import {AuthGuard} from "../auth/auth.guard";
 
-@Controller('basket-device')
+@Controller('basketDevice')
 export class BasketDeviceController {
     constructor(private readonly basketDeviceService: BasketDeviceService) {}
 
@@ -12,6 +12,13 @@ export class BasketDeviceController {
     async createBasketDevice(@Req() req, @Body() dto: BasketDeviceCrateDto) {
         const {user} = req
         return await this.basketDeviceService.create(dto.deviceId, user.id)
+    }
+
+    @UseGuards(AuthGuard)
+    @Get("all")
+    async getAllBasketDevices(@Req() req) {
+        const {user} = req
+        return await this.basketDeviceService.getAllDevices(user.id)
     }
 
     @UseGuards(AuthGuard)

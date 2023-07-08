@@ -12,6 +12,10 @@ export class BasketDeviceService {
     ) {}
     async create(deviceId: number, userId: number) {
         const basket = await this.basketService.getBasket(userId)
+        const existanceDevice = await this.basketDeviceProvider.findOne({where: {basketId: basket.id, deviceId}})
+        if(existanceDevice){
+            throw new BadRequestException("This device already exist at basket")
+        }
         return await this.basketDeviceProvider.create({deviceId, basketId: basket.id})
     }
 
@@ -28,5 +32,10 @@ export class BasketDeviceService {
         }
         await this.basketDeviceProvider.destroy({where: {id}})
         return `Device with ${id} was deleted from basket`
+    }
+
+    async getAllDevices(userId: number) {
+        const basket = await this.basketService.getBasket(userId)
+        return await this.basketDeviceProvider.findAll({where: {basketId: basket.id}, include: [Device]})
     }
 }

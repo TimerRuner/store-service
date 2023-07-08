@@ -10,8 +10,6 @@ import {RoleGuard} from "../auth/role.guard";
 export class DeviceCharacteristicController {
     constructor(private readonly deviceCharacteristicService: DeviceCharacteristicService) {}
 
-    @Roles(ERole.CREATOR, ERole.MANAGER)
-    @UseGuards(RoleGuard)
     @Post("create")
     async createDetail(@Body() dto: CreateDetailDto) {
         return await this.deviceCharacteristicService.createDetail(dto)

@@ -44,9 +44,11 @@ export class DeviceController {
     @Get("all")
     async getAllDevice(
         @Query("limit") limit: number,
-        @Query("offset") offset: number
+        @Query("offset") offset: number,
+        @Query("typeId") typeId?: number | undefined,
+        @Query("brandId") brandId?: number | undefined
     ) {
-        return this.deviceService.getAll(offset, limit)
+        return this.deviceService.getAll(offset, limit, typeId, brandId)
     }
 
     @Get("/search/:query")

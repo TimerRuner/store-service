@@ -1,8 +1,11 @@
-import {BadRequestException, Body, Delete, Get, Injectable, Param, Patch} from '@nestjs/common';
+import {BadRequestException, Body, Delete, Get, Injectable, Param, Patch, UseGuards} from '@nestjs/common';
 import {InjectModel} from "@nestjs/sequelize";
 import {DeviceCharacteristic} from "./device_characteristic.model";
 import {CreateDetailDto} from "./dto/create-detail.dto";
 import {UpdateDetailDto} from "./dto/update-detail.dto";
+import {Roles} from "../auth/role.decorator";
+import {ERole} from "../user/dto/user-create.dto";
+import {RoleGuard} from "../auth/role.guard";
 
 @Injectable()
 export class DeviceCharacteristicService {
@@ -11,7 +14,11 @@ export class DeviceCharacteristicService {
     ) {}
 
     async createDetail(dto: CreateDetailDto) {
-        return await this.deviceCharacteristicProvider.create(dto)
+        try {
+            return await this.deviceCharacteristicProvider.create(dto)
+        } catch (e) {
+            throw new BadRequestException(e)
+        }
     }
 
     async getAllDetailByDeviceId(deviceId: number) {
