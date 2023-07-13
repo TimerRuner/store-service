@@ -10,6 +10,8 @@ import {RoleModule} from "../role/role.module";
 import { TokenModule } from "../token/token.module";
 import {Basket} from "../basket/basket.model";
 import {Rating} from "../rating/rating.model";
+import {Device} from "../device/device.model";
+import {BasketModule} from "../basket/basket.module";
 
 @Module({
   imports: [
@@ -19,10 +21,12 @@ import {Rating} from "../rating/rating.model";
           Token,
           Account,
           Basket,
-          Rating
+          Rating,
+          Device
       ]),
       RoleModule,
-      TokenModule
+      TokenModule,
+      BasketModule
   ],
   controllers: [UserController],
   providers: [UserService],

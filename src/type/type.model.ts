@@ -11,7 +11,7 @@ interface IType {
 export class Type extends Model<Type, IType> {
     @Column({type: DataType.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true})
     id: number
-
+    //todo realize validation for name (length more 3 letter)
     @Column({type: DataType.STRING, allowNull: false, unique: true})
     name: string
 

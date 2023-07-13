@@ -4,6 +4,7 @@ import {Token} from "../token/token.model";
 import {Account} from "../account/account.model";
 import {Basket} from "../basket/basket.model";
 import {Rating} from "../rating/rating.model";
+import {Device} from "../device/device.model";
 
 interface IUserDto {
     fullName: string
@@ -42,4 +43,7 @@ export class User extends Model<User, IUserDto> {
 
     @HasMany(() => Rating)
     ratings: Rating[]
+
+    @HasMany(() => Device)
+    devices: Device[]
 }

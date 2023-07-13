@@ -6,12 +6,15 @@ import {Type} from "./type.model";
 import {TypeBrand} from "./type-brand.model";
 import {Brand} from "../brand/brand.model";
 import {Device} from "../device/device.model";
+import {TokenModule} from "../token/token.module";
 
 @Module({
   imports: [
-      SequelizeModule.forFeature([Type, TypeBrand, Brand, Device])
+    SequelizeModule.forFeature([Type, TypeBrand, Brand, Device]),
+    TokenModule
   ],
   controllers: [TypeController],
-  providers: [TypeService]
+  providers: [TypeService],
+  exports: [TypeService]
 })
 export class TypeModule {}

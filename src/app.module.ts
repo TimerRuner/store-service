@@ -25,6 +25,7 @@ import {Brand} from "./brand/brand.model";
 import {BasketDevice} from "./basket_device/basket_device.model";
 import {Rating} from "./rating/rating.model";
 import {DeviceCharacteristic} from "./device_characteristic/device_characteristic.model";
+import {FilesModule} from "./files/files.module";
 
 @Module({
   imports: [
@@ -32,31 +33,33 @@ import {DeviceCharacteristic} from "./device_characteristic/device_characteristi
         envFilePath: ".env",
         isGlobal: true
       }),
-      SequelizeModule.forRoot({
-        dialect: "postgres",
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
-        models: [
-            User,
-            Role,
-            Token,
-            Account,
-            Basket,
-            BasketDevice,
-            Type,
-            TypeBrand,
-            Device,
-            Brand,
-            Rating,
-            DeviceCharacteristic
-        ],
-        autoLoadModels: true,
-        synchronize: true,
-        logging: true
+      SequelizeModule.forRootAsync({
+          useFactory: () => ({
+              dialect: 'postgres',
+              host: process.env.DB_HOST,
+              port: Number(process.env.DB_PORT),
+              username: process.env.DB_USERNAME,
+              password: process.env.DB_PASSWORD,
+              database: process.env.DB_DATABASE,
+              autoLoadModels: true,
+              synchronize: false,
+              logging: true,
+          }),
       }),
+      SequelizeModule.forFeature([
+          User,
+          Role,
+          Token,
+          Account,
+          Basket,
+          BasketDevice,
+          Type,
+          TypeBrand,
+          Device,
+          Brand,
+          Rating,
+          DeviceCharacteristic,
+      ]),
       UserModule,
       TokenModule,
       AccountModule,
@@ -69,6 +72,7 @@ import {DeviceCharacteristic} from "./device_characteristic/device_characteristi
       DeviceCharacteristicModule,
       TypeModule,
       BrandModule,
+      FilesModule
   ],
 })
 export class AppModule {}

@@ -1,10 +1,11 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import {ERole, UserCreateDto} from "./dto/user-create.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {InjectModel} from "@nestjs/sequelize";
 import {User} from "./user.model";
 import {RoleService} from "../role/role.service";
 import {Role} from "../role/role.model";
+import {BasketService} from "../basket/basket.service";
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,7 @@ export class UserService {
     constructor(
         @InjectModel(User) private readonly userRepository: typeof User,
         private readonly roleService: RoleService,
+        private readonly basketService: BasketService
     ) {}
     async create(dto: UserCreateDto) {
         let role
@@ -24,6 +26,8 @@ export class UserService {
            delete dto.role
         }
         const user = await this.userRepository.create(dto)
+
+        await this.basketService.createBasket(user.id)
 
         user.roleId = role.id
         await user.save()
@@ -54,11 +58,12 @@ export class UserService {
         return updatedRecords
     }
 
-    async delete(id: string) {
-        const deletedRecord = await this.userRepository.destroy({where: {id}})
-        if(!deletedRecord) {
-            throw new NotFoundException(`User with id ${id} does not exist`)
+    async delete(id: number) {
+        if(!id) {
+            throw new BadRequestException(`Id doesn't exist`)
         }
+        await this.userRepository.destroy({where: {id}})
+        await this.basketService.deleteBasket(id)
         return `User with id ${id} was removed successfully`
     }
 
