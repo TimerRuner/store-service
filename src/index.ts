@@ -5,6 +5,8 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const fileUpload = require("express-fileupload")
 
+const errorMiddleware = require("./error/ApiError")
+
 const app = express()
 const PORT = process.env.PORT || 5000
 const UI_ORIGIN = process.env.UI_ORIGIN || "http://localhost:3000"
@@ -17,6 +19,7 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(fileUpload())
+app.use(errorMiddleware)
 
 
 const start = async () => {
