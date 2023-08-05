@@ -45,6 +45,18 @@ class AuthController {
             next(ApiError.internal(e.message))
         }
     }
+
+    async googleCallback(req, res, next) {
+        const {user} = req
+        const existingUser = !!Object.keys(user).length
+        if(existingUser) {
+            res.cookie('refreshToken', user.refreshToken, {maxAge: 30 * 60 * 1000, httpOnly: true })
+            res.cookie('user', JSON.stringify(user), {maxAge: 30 * 60 * 1000})
+            return res.redirect(`${process.env.UI_ORIGIN}`)
+        } else {
+            res.redirect(`${process.env.UI_ORIGIN}/signup`)
+        }
+    }
 }
 
 module.exports = new AuthController()
