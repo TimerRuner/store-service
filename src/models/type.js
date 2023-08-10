@@ -4,4 +4,4 @@ const typeSchema = new SchemaType({
     name: {type: String, unique: true, require: true}
 })
 
-module.exports = typeModel("Brands", typeSchema)
+module.exports = typeModel("Types", typeSchema)

@@ -11,18 +11,18 @@ module.exports = (role) => (req, res, next) => {
             res.status(401).json({message: "User Unauthorized"})
         }
 
-        const accessToken =authorizationHeader.split(" ")[1]
+        const accessToken = authorizationHeader.split(" ")[1]
         if(!accessToken) {
             res.status(401).json({message: "User Unauthorized"})
         }
 
-        const userData = jwt.verify(accessToken, process.env.JWT_SECRET)
+        const {_doc: userData} = jwt.verify(accessToken, process.env.JWT_SECRET)
         if(!userData) {
             res.status(401).json({message: "User Unauthorized"})
         }
 
-        const matchedData = role.some(specialRole => specialRole.includes(userData.role))
-        if(userData.role === matchedData) {
+        const matchedData = role.some(specialRole => specialRole === userData?.roleId?.value)
+        if(matchedData) {
             req.user = userData
             next()
         } else {

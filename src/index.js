@@ -24,7 +24,6 @@ app.use(require('express-session')({ secret: process.env.JWT_SECRET, resave: tru
 // }))
 app.use(express.json())
 app.use(cookieParser())
-app.use(fileUpload())
 app.use("/api", router)
 
 // Initialize Passport and session

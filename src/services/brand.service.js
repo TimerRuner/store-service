@@ -9,13 +9,16 @@ class BrandService {
         return await BrandModule.find({})
     }
 
+    async getOne(id) {
+        return await BrandModule.findOne({_id: id})
+    }
+
     async update(name, id) {
         return await BrandModule.findOneAndUpdate({_id: id}, {name}, {new: true})
     }
 
     async delete(id) {
-        await BrandModule.findOneAndDelete({_id: id})
-
+       return await BrandModule.findOneAndDelete({_id: id})
     }
 }
 
