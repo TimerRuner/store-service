@@ -1,6 +1,5 @@
 const ApiError = require("../error/ApiError")
 const DeviceService = require("../services/device.service")
-const {of} = require("rxjs");
 
 class DeviceController {
 
